@@ -1,7 +1,10 @@
 describe('Central de Atendimento ao Cliente TAT', () => {
   beforeEach(() =>{
    cy.visit('src/index.html')
+<<<<<<< HEAD
    //Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+=======
+>>>>>>> main
   }) 
    it('verifica o título da aplicação', () => {
    
@@ -63,14 +66,21 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('.success').should('have.text','\n      Mensagem enviada com sucesso.\n    ')
 
   })
+<<<<<<< HEAD
   it('Usando o cy.contains', () => {
+=======
+  it.only('Usando o cy.contains', () => {
+>>>>>>> main
     //selecionando campo do tipo combobox
     cy.get('select').select(2)
     cy.get('select').select('Blog')
     cy.get('select').select('youtube')
     cy.contains('button','Enviar')
+<<<<<<< HEAD
   })
   it.only('seleciona um produto (YouTube) por seu texto', () => {
     cy.get('select').select('youtube')
+=======
+>>>>>>> main
   })
 })
