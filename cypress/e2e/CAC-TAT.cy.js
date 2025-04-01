@@ -1,10 +1,9 @@
 describe('Central de Atendimento ao Cliente TAT', () => {
   beforeEach(() =>{
    cy.visit('src/index.html')
-<<<<<<< HEAD
+
    //Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-=======
->>>>>>> main
+
   }) 
    it('verifica o título da aplicação', () => {
    
@@ -66,21 +65,44 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('.success').should('have.text','\n      Mensagem enviada com sucesso.\n    ')
 
   })
-<<<<<<< HEAD
   it('Usando o cy.contains', () => {
-=======
-  it.only('Usando o cy.contains', () => {
->>>>>>> main
     //selecionando campo do tipo combobox
     cy.get('select').select(2)
-    cy.get('select').select('Blog')
+    cy.get('#product').select(1)
     cy.get('select').select('youtube')
     cy.contains('button','Enviar')
-<<<<<<< HEAD
+
   })
-  it.only('seleciona um produto (YouTube) por seu texto', () => {
-    cy.get('select').select('youtube')
-=======
->>>>>>> main
+  it('seleciona um produto (YouTube) por seu texto', () => {
+    cy.get('select')
+    .select('YouTube')
+    .should('have.value','youtube')
+  })
+  it('Seleciona um produto (mentoria) pelo seu value', () => {
+     cy.get('#product')
+    .select('mentoria')
+    .should('have.value','mentoria')
+  })
+  it('Selecionando input radio', () => {
+    cy.get('input[type="radio"][value="feedback"]')
+    .check()
+    .should('be.checked.value','feedback')
+  })
+  it('Marca cada tipo de atendimento', () => {
+    cy.get('input[type="radio"]')
+    .each(arrayElementos => { //each recebe uma função array
+      cy.wrap(arrayElementos)//wrap pega cada elemento do array
+      .check()
+      .should('be.checked')
+      
+    })
+  it.only('marca ambos checkboxes, depois desmarca o último',() =>{
+    cy.get('input[type="checkbox"]')
+    .check()
+    .should('be.checked')
+    .last()
+    .uncheck()
+    .should('not.be.checked')
+  })
   })
 })
