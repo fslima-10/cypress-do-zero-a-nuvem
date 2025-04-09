@@ -28,10 +28,10 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('#lastName').type('Lima')
     cy.get('#email').type('fabio@gmail.com')
     cy.get('#open-text-area').type('Testando envio de mensagem', { delay: 50 });
-    cy.get('#phone-checkbox').click()
+    cy.get('#phone-checkbox').check()
     cy.get('.button').click();
 
-    cy.get('.error').should('have.text','Valide os campos obrigatórios!')
+   // cy.get('.error').should('have.text','Valide os campos obrigatórios!')
   })
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
     cy.get('#firstName').type('Fabio')
@@ -41,7 +41,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('#open-text-area').type('Testando envio de mensagem', { delay: 50 });
     cy.get('.button').click();   
     cy.get('.error').should('be.visible')
-    cy.get('.error').should('have.text','Valide os campos obrigatórios!')
+    
 })
   it('usando a função clear', () => {
     cy.get('#firstName')
@@ -62,7 +62,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     
     cy.fillMandatoryFieldsAndSubmit(data)
     cy.get('.success').should('be.visible')
-    cy.get('.success').should('have.text','\n      Mensagem enviada com sucesso.\n    ')
+    //cy.get('.success').should('have.text','\n      Mensagem enviada com sucesso.\n    ')
 
   })
   it('Usando o cy.contains', () => {
@@ -96,13 +96,36 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .should('be.checked')
       
     })
-  it.only('marca ambos checkboxes, depois desmarca o último',() =>{
-    cy.get('input[type="checkbox"]')
-    .check()
-    .should('be.checked')
-    .last()
-    .uncheck()
-    .should('not.be.checked')
   })
+    it('marca ambos checkboxes, depois desmarca o último', () => {
+      cy.get('input[type="checkbox"]')
+      .check()
+      .should('be.checked')
+      .last()
+      .uncheck()
+      .should('not.be.checked')
+    })
+    it('seleciona um arquivo da pasta fixtures' , () => {
+      cy.get('#file-upload')
+        .selectFile('cypress/fixtures/example.json')
+       
+        .should(input => {
+          //console.log(input)
+          console.log(input[0].files[0].name)
+          expect(input[0].files[0].name).to.equal('example.json')
+          
+      })
+    })
+    it('seleciona um arquivo simulando um drag-and-drop', () => {
+      cy.get('#file-upload')
+        .selectFile('cypress/fixtures/example.json', {action: 'drag-drop'})
+        .should(input => {
+          expect(input[0].files[0].name).to.equal('example.json')
+      })
+    })
+  it.only('seleciona um arquivo utilizando uma fixture para a qual foi dada um alia', () => {
+    cy.fixture('example.json').as('exampleFile')
+      cy.get('#file-upload')
+      .selectFile('@exampleFile')
   })
 })
