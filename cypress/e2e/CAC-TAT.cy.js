@@ -123,7 +123,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
           expect(input[0].files[0].name).to.equal('example.json')
       })
     })
-  it.only('seleciona um arquivo utilizando uma fixture para a qual foi dada um alia', () => {
+  it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alia', () => {
     cy.fixture('example.json').as('exampleFile')
       cy.get('#file-upload')
       .selectFile('@exampleFile')
@@ -133,7 +133,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     .should('have.attr','href','privacy.html')//verifica se o href abre na página privacy.html, dessa forma não é necessário abrir uma nova clicar e abrir uma nova aba.
     .and('have.attr','target','_blank')//verifica se o atributo target tem o _blank
   })
-  it.only('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
+  it('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
     cy.contains('a', 'Política de Privacidade')
     .invoke('removeAttr','target')
     //.click()
