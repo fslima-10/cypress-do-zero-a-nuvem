@@ -111,7 +111,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
        
         .should(input => {
           //console.log(input)
-          console.log(input[0].files[0].name)
+          console.log(input[0].files[0].name) // A informçaão do log aparece no navegador na guia console.
           expect(input[0].files[0].name).to.equal('example.json')
           
       })
@@ -127,5 +127,17 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.fixture('example.json').as('exampleFile')
       cy.get('#file-upload')
       .selectFile('@exampleFile')
+  })
+  it("verifica que a política de privacidade abre em outra aba sem a necessidade de um clique", () => {
+    cy.contains('a', 'Política de Privacidade')// pega o atributo a que contém o texto Política de Privacidade.
+    .should('have.attr','href','privacy.html')//verifica se o href abre na página privacy.html, dessa forma não é necessário abrir uma nova clicar e abrir uma nova aba.
+    .and('have.attr','target','_blank')//verifica se o atributo target tem o _blank
+  })
+  it.only('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
+    cy.contains('a', 'Política de Privacidade')
+    .invoke('removeAttr','target')
+    //.click()
+    //cy.contains('h1', 'CAC TAT - Política de Privacidade').should('be.visible')
+    
   })
 })
